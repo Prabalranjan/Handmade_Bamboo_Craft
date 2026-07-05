@@ -76,6 +76,7 @@ function removeItem(id){
 }
 
 function openCart(){
+  if(typeof closeWishlist === "function") closeWishlist();
   document.getElementById("cartDrawer").classList.add("open");
   document.getElementById("cartOverlay").classList.add("open");
 }
