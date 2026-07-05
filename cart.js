@@ -124,10 +124,9 @@ function initCartWidget(){
 
   renderCart();
 
-  // Browsers can restore this page from bfcache on back/forward navigation
-  // without re-running scripts, so the cart count shown can go stale. Re-sync
-  // from localStorage whenever the page becomes visible again (also picks up
-  // changes made in another tab).
+  // Defense in depth: if a bfcache restore ever slips through, re-sync from
+  // localStorage as soon as the page is shown (also picks up changes made in
+  // another tab).
   window.addEventListener("pageshow", () => {
     cart = loadCart();
     renderCart();
@@ -139,3 +138,11 @@ function initCartWidget(){
     }
   });
 }
+
+// Registering a `beforeunload` listener opts this page out of the browser's
+// back/forward cache (bfcache). Without this, going Back restores the exact
+// frozen page from before you left — including the OLD cart count — and
+// paints it a beat before our pageshow handler above can correct it, which
+// is what caused the visible flash of the wrong number. Forcing a real
+// reload means the count is computed fresh before anything is painted.
+window.addEventListener("beforeunload", () => {});
