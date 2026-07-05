@@ -23,6 +23,18 @@
       <button class="icon-btn" id="cartToggle" aria-label="Open cart">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 2.5h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 6.5H6"/></svg>
         <span class="cart-count" id="cartCount">0</span>
+        <script>
+          // Set the real count synchronously, before first paint, so the
+          // badge never flashes "0" before cart.js finishes loading.
+          (function(){
+            try {
+              var cart = JSON.parse(localStorage.getItem("bambooCraftCart")) || {};
+              var count = 0;
+              for(var id in cart){ if(cart[id] > 0) count += cart[id]; }
+              document.getElementById("cartCount").textContent = count;
+            } catch(e){}
+          })();
+        </script>
       </button>
       <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
