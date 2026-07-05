@@ -3,6 +3,17 @@
 
 const WHATSAPP_NUMBER = "919999999999";
 
+// Shop-by-category marquee on the homepage. "All" clears the filter.
+const CATEGORIES = ["All", "Lighting", "Planters", "Drinkware", "Storage", "Home Decor"];
+const CATEGORY_IMAGES = {
+  All: "product/Bamboo Weaving Pendant Lamp.jpg",
+  Lighting: "product/Handmade Bamboo Table Lamp.jpg",
+  Planters: "product/Hanging Bamboo Planter.jpg",
+  Drinkware: "product/Handmade Carbonized Bamboo Cup, Eco Tea or Coffee Cup 130-200ml.jpg",
+  Storage: "product/Airtight Storage Box.jpg",
+  "Home Decor": "product/Handmade Bamboo Fountain with Double Bowls.jpg"
+};
+
 // Placeholder description — same text on every product for now.
 // Swap PRODUCT_DESCRIPTION per product later once real copy is ready.
 const PRODUCT_DESCRIPTION = {
@@ -29,6 +40,7 @@ const products = [
   {
     id: "lantern-pendant",
     name: "3-Light Lantern Bowl LED Pendant",
+    category: "Lighting",
     price: 1899,
     image: "product/3- Light Lantern Bowl LED Pendant yellow.jpg",
     desc: "Warm LED pendant lantern with a hand-shaped bamboo bowl shade.",
@@ -44,6 +56,7 @@ const products = [
   {
     id: "storage-box",
     name: "Airtight Bamboo Storage Box",
+    category: "Storage",
     price: 549,
     image: "product/Airtight Storage Box.jpg",
     desc: "Keep dry goods fresh in a handwoven airtight storage box.",
@@ -59,6 +72,7 @@ const products = [
   {
     id: "weaving-lamp",
     name: "Bamboo Weaving Pendant Lamp",
+    category: "Lighting",
     price: 2299,
     image: "product/Bamboo Weaving Pendant Lamp.jpg",
     desc: "Intricately woven pendant lamp that casts a soft, warm glow.",
@@ -74,6 +88,7 @@ const products = [
   {
     id: "fountain",
     name: "Bamboo Fountain with Double Bowls",
+    category: "Home Decor",
     price: 3499,
     image: "product/Handmade Bamboo Fountain with Double Bowls.jpg",
     desc: "A soothing tabletop water fountain for home or office.",
@@ -89,6 +104,7 @@ const products = [
   {
     id: "table-lamp",
     name: "Handmade Bamboo Table Lamp",
+    category: "Lighting",
     price: 1599,
     image: "product/Handmade Bamboo Table Lamp.jpg",
     desc: "A statement table lamp handcrafted from natural bamboo.",
@@ -104,6 +120,7 @@ const products = [
   {
     id: "tea-cup",
     name: "Carbonized Bamboo Tea/Coffee Cup",
+    category: "Drinkware",
     price: 349,
     image: "product/Handmade Carbonized Bamboo Cup, Eco Tea or Coffee Cup 130-200ml.jpg",
     desc: "A 130-200ml eco-friendly cup, carbonized for durability.",
@@ -119,6 +136,7 @@ const products = [
   {
     id: "planter",
     name: "Hanging Bamboo Planter",
+    category: "Planters",
     price: 699,
     image: "product/Hanging Bamboo Planter.jpg",
     desc: "Bring greenery indoors with this handwoven hanging planter.",
@@ -134,6 +152,7 @@ const products = [
   {
     id: "water-jug",
     name: "Bamboo Water Jug",
+    category: "Drinkware",
     price: 799,
     image: "product/water jug.jpg",
     desc: "A rustic, naturally antibacterial bamboo water jug.",

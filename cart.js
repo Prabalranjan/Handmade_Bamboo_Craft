@@ -77,12 +77,24 @@ function removeItem(id){
 
 function openCart(){
   if(typeof closeWishlist === "function") closeWishlist();
+  closeNav();
   document.getElementById("cartDrawer").classList.add("open");
   document.getElementById("cartOverlay").classList.add("open");
 }
 function closeCart(){
   document.getElementById("cartDrawer").classList.remove("open");
   document.getElementById("cartOverlay").classList.remove("open");
+}
+
+function openNav(){
+  closeCart();
+  if(typeof closeWishlist === "function") closeWishlist();
+  document.getElementById("navLinks").classList.add("open");
+  document.getElementById("navOverlay").classList.add("open");
+}
+function closeNav(){
+  document.getElementById("navLinks").classList.remove("open");
+  document.getElementById("navOverlay").classList.remove("open");
 }
 
 function checkoutViaWhatsApp(){
@@ -118,9 +130,13 @@ function initCartWidget(){
 
   const navLinks = document.getElementById("navLinks");
   const menuToggle = document.getElementById("menuToggle");
-  if(navLinks && menuToggle){
-    menuToggle.addEventListener("click", () => navLinks.classList.toggle("open"));
-    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("open")));
+  const navOverlay = document.getElementById("navOverlay");
+  const navClose = document.getElementById("navClose");
+  if(navLinks && menuToggle && navOverlay){
+    menuToggle.addEventListener("click", openNav);
+    navOverlay.addEventListener("click", closeNav);
+    if(navClose) navClose.addEventListener("click", closeNav);
+    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
   }
 
   renderCart();
@@ -138,6 +154,23 @@ function initCartWidget(){
       renderCart();
     }
   });
+}
+
+// Shared footer behavior (dynamic copyright year + newsletter placeholder) —
+// used on every page. The newsletter form doesn't send anywhere yet; it just
+// confirms client-side, same as the Contact page form.
+function initFooter(){
+  const yearEl = document.getElementById("footerYear");
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+  const form = document.getElementById("newsletterForm");
+  if(form){
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById("newsletterSuccess").classList.add("show");
+      e.target.reset();
+    });
+  }
 }
 
 // Registering a `beforeunload` listener opts this page out of the browser's

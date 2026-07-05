@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Product | Handmade Bamboo Craft</title>
-<meta name="description" id="pageMetaDesc" content="Handcrafted bamboo product from Handmade Bamboo Craft, Assam.">
+<title>Order Tracking | Handmade Bamboo Craft</title>
+<meta name="description" content="How to check the status of your Handmade Bamboo Craft order.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -31,8 +31,6 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
         <span class="cart-count" id="wishlistCount">0</span>
         <script>
-          // Same fix as the cart badge: hydrate synchronously so it never
-          // flashes "0" before wishlist.js finishes loading.
           (function(){
             try {
               var list = JSON.parse(localStorage.getItem("bambooCraftWishlist"));
@@ -45,8 +43,6 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 2.5h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 6.5H6"/></svg>
         <span class="cart-count" id="cartCount">0</span>
         <script>
-          // Set the real count synchronously, before first paint, so the
-          // badge never flashes "0" before cart.js finishes loading.
           (function(){
             try {
               var cart = JSON.parse(localStorage.getItem("bambooCraftCart")) || {};
@@ -67,12 +63,32 @@
 <div class="cart-overlay" id="navOverlay"></div>
 
 <div class="wrap">
-  <p class="breadcrumb"><a href="index.html#home">Home</a> / <a href="index.html#shop">Shop</a> / <span id="breadcrumbName">Product</span></p>
-
-  <div class="product-detail" id="productDetail">
-    <!-- filled in by script -->
-  </div>
+  <p class="breadcrumb"><a href="index.html#home">Home</a> / <span>Order Tracking</span></p>
 </div>
+
+<section>
+  <div class="wrap">
+    <div class="section-heading">
+      <h2>Order Tracking</h2>
+      <p>We're a small team and don't yet have an automated tracking page — here's the fastest way to get a real answer.</p>
+    </div>
+    <div class="legal-content">
+      <h2>Check your order status on WhatsApp</h2>
+      <p>Since every order is confirmed and shipped by us directly, the quickest way to get an update is to message us on WhatsApp with your name and the date you ordered. We'll reply with your current status — packed, shipped, or out for delivery — along with the courier tracking number once it's dispatched.</p>
+      <p><a href="https://wa.me/919999999999" target="_blank" rel="noopener" class="btn-primary">Message us on WhatsApp</a></p>
+
+      <h2>What to expect, timeline-wise</h2>
+      <ul>
+        <li>Handcrafting &amp; packing: usually 2–4 business days</li>
+        <li>Transit: typically 5–10 business days pan-India, depending on your location</li>
+      </ul>
+      <p>See our <a href="shipping-returns.html">Shipping &amp; Returns</a> page for full details.</p>
+
+      <h2>Haven't heard back?</h2>
+      <p>If it's been more than 2 business days since you ordered with no update, please follow up on WhatsApp or via our <a href="contact.html">Contact</a> page — we'll chase it down for you.</p>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap footer-newsletter">
@@ -150,110 +166,6 @@
 <script src="cart.js"></script>
 <script src="wishlist.js"></script>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id");
-  const product = products.find(p => p.id === productId) || products[0];
-
-  document.getElementById("pageTitle").textContent = `${product.name} | Handmade Bamboo Craft`;
-  document.getElementById("pageMetaDesc").setAttribute("content", product.desc);
-  document.getElementById("breadcrumbName").textContent = product.name;
-
-  let activeImageIndex = 0;
-
-  function renderDetail(){
-    const images = product.images && product.images.length ? product.images : [product.image];
-    const d = PRODUCT_DESCRIPTION;
-
-    document.getElementById("productDetail").innerHTML = `
-      <div class="product-gallery">
-        <div class="gallery-main"><img id="galleryMainImg" src="${images[activeImageIndex]}" alt="${product.name}"></div>
-        <div class="gallery-thumbs" id="galleryThumbs">
-          ${images.map((src, i) => `
-            <button type="button" class="${i === activeImageIndex ? "active" : ""}" data-index="${i}">
-              <img src="${src}" alt="${product.name} photo ${i + 1}" loading="lazy">
-            </button>
-          `).join("")}
-        </div>
-      </div>
-      <div class="product-info">
-        <h1>${product.name}</h1>
-        <div class="detail-price">${formatPrice(product.price)}</div>
-        <p class="detail-short-desc">${product.desc}</p>
-        <div class="detail-actions">
-          <div class="detail-qty">
-            <button type="button" id="qtyMinus">&minus;</button>
-            <span id="qtyValue">1</span>
-            <button type="button" id="qtyPlus">+</button>
-          </div>
-          <button class="btn-primary" id="addToCartBtn" data-label="Add to Cart">Add to Cart</button>
-          <button type="button" class="wishlist-btn wishlist-btn-inline" id="detailWishlistBtn" data-id="${product.id}" aria-label="Toggle wishlist">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-          </button>
-        </div>
-
-        <div class="description-block">
-          <h2>Overview</h2>
-          <p>${d.overview}</p>
-
-          <h2>Key Features</h2>
-          <ul>${d.features.map(f => `<li>${f}</li>`).join("")}</ul>
-
-          <h2>Specifications</h2>
-          <ul>${d.specs.map(s => `<li>${s}</li>`).join("")}</ul>
-        </div>
-      </div>
-    `;
-
-    document.getElementById("detailWishlistBtn").addEventListener("click", () => {
-      toggleWishlist(product.id);
-    });
-    syncWishlistButtons();
-
-    document.getElementById("galleryThumbs").addEventListener("click", e => {
-      const btn = e.target.closest("button[data-index]");
-      if(!btn) return;
-      activeImageIndex = Number(btn.dataset.index);
-      document.getElementById("galleryMainImg").src = images[activeImageIndex];
-      document.querySelectorAll("#galleryThumbs button").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    });
-
-    let qty = 1;
-    let addedTimeout = null;
-    const qtyValue = document.getElementById("qtyValue");
-    const addToCartBtn = document.getElementById("addToCartBtn");
-
-    function resetAddButton(){
-      if(addedTimeout){ clearTimeout(addedTimeout); addedTimeout = null; }
-      addToCartBtn.textContent = addToCartBtn.dataset.label;
-      addToCartBtn.classList.remove("added");
-    }
-
-    document.getElementById("qtyMinus").addEventListener("click", () => {
-      qty = Math.max(1, qty - 1);
-      qtyValue.textContent = qty;
-      resetAddButton();
-    });
-    document.getElementById("qtyPlus").addEventListener("click", () => {
-      qty += 1;
-      qtyValue.textContent = qty;
-      resetAddButton();
-    });
-    addToCartBtn.addEventListener("click", e => {
-      for(let i = 0; i < qty; i++) addToCart(product.id);
-      const btn = e.currentTarget;
-      const original = btn.dataset.label;
-      btn.textContent = "Added to Cart";
-      btn.classList.add("added");
-      addedTimeout = setTimeout(() => {
-        btn.textContent = original;
-        btn.classList.remove("added");
-        addedTimeout = null;
-      }, 1200);
-    });
-  }
-
-  renderDetail();
   initCartWidget();
   initWishlistWidget();
   initFooter();

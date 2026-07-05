@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Product | Handmade Bamboo Craft</title>
-<meta name="description" id="pageMetaDesc" content="Handcrafted bamboo product from Handmade Bamboo Craft, Assam.">
+<title>Privacy Policy | Handmade Bamboo Craft</title>
+<meta name="description" content="How Handmade Bamboo Craft handles your information.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -31,8 +31,6 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
         <span class="cart-count" id="wishlistCount">0</span>
         <script>
-          // Same fix as the cart badge: hydrate synchronously so it never
-          // flashes "0" before wishlist.js finishes loading.
           (function(){
             try {
               var list = JSON.parse(localStorage.getItem("bambooCraftWishlist"));
@@ -45,8 +43,6 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 2.5h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 6.5H6"/></svg>
         <span class="cart-count" id="cartCount">0</span>
         <script>
-          // Set the real count synchronously, before first paint, so the
-          // badge never flashes "0" before cart.js finishes loading.
           (function(){
             try {
               var cart = JSON.parse(localStorage.getItem("bambooCraftCart")) || {};
@@ -67,12 +63,44 @@
 <div class="cart-overlay" id="navOverlay"></div>
 
 <div class="wrap">
-  <p class="breadcrumb"><a href="index.html#home">Home</a> / <a href="index.html#shop">Shop</a> / <span id="breadcrumbName">Product</span></p>
-
-  <div class="product-detail" id="productDetail">
-    <!-- filled in by script -->
-  </div>
+  <p class="breadcrumb"><a href="index.html#home">Home</a> / <span>Privacy Policy</span></p>
 </div>
+
+<section>
+  <div class="wrap">
+    <div class="section-heading">
+      <h2>Privacy Policy</h2>
+      <p>A plain-language explanation of what we collect and why.</p>
+    </div>
+    <div class="legal-content">
+      <p class="updated-date">Last updated: January 2026</p>
+
+      <h2>What we collect</h2>
+      <p>We collect information you choose to give us directly — for example, when you message us on WhatsApp to place an order or ask a question, or when you fill in the contact or newsletter forms on this site. This may include your name, phone number, email address, and delivery address.</p>
+
+      <h2>What we don't collect</h2>
+      <p>This site has no user accounts, no analytics or advertising trackers, and no server-side database. We don't sell, rent, or share your information with third parties for marketing purposes.</p>
+
+      <h2>Your cart and wishlist</h2>
+      <p>Items you add to your cart or wishlist are stored only in your own browser (using local storage), so we can remember them between visits. This data never leaves your device or reaches us until you actually send an order through WhatsApp.</p>
+
+      <h2>Contact and newsletter forms</h2>
+      <p>The forms on our Contact and newsletter signup pages currently confirm submission in your browser but are not yet connected to an email inbox or mailing list — nothing you type there is transmitted or stored by us. If that changes, we'll update this policy.</p>
+
+      <h2>Orders and WhatsApp</h2>
+      <p>Ordering happens through WhatsApp, which is operated by Meta and governed by its own privacy policy. Any information you share with us there is used only to fulfil your order — confirm availability, arrange payment, and ship your items.</p>
+
+      <h2>Third-party services</h2>
+      <p>This site loads fonts from Google Fonts, which may see your IP address when the page loads, as is standard for any site using a font CDN. We don't use any other third-party embeds or scripts.</p>
+
+      <h2>Your rights</h2>
+      <p>You can ask us at any time what information we hold about you, or ask us to delete it, by messaging us via <a href="contact.html">Contact</a> or WhatsApp.</p>
+
+      <h2>Questions</h2>
+      <p>If you have any questions about this policy, reach out through our <a href="contact.html">Contact</a> page.</p>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap footer-newsletter">
@@ -150,110 +178,6 @@
 <script src="cart.js"></script>
 <script src="wishlist.js"></script>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id");
-  const product = products.find(p => p.id === productId) || products[0];
-
-  document.getElementById("pageTitle").textContent = `${product.name} | Handmade Bamboo Craft`;
-  document.getElementById("pageMetaDesc").setAttribute("content", product.desc);
-  document.getElementById("breadcrumbName").textContent = product.name;
-
-  let activeImageIndex = 0;
-
-  function renderDetail(){
-    const images = product.images && product.images.length ? product.images : [product.image];
-    const d = PRODUCT_DESCRIPTION;
-
-    document.getElementById("productDetail").innerHTML = `
-      <div class="product-gallery">
-        <div class="gallery-main"><img id="galleryMainImg" src="${images[activeImageIndex]}" alt="${product.name}"></div>
-        <div class="gallery-thumbs" id="galleryThumbs">
-          ${images.map((src, i) => `
-            <button type="button" class="${i === activeImageIndex ? "active" : ""}" data-index="${i}">
-              <img src="${src}" alt="${product.name} photo ${i + 1}" loading="lazy">
-            </button>
-          `).join("")}
-        </div>
-      </div>
-      <div class="product-info">
-        <h1>${product.name}</h1>
-        <div class="detail-price">${formatPrice(product.price)}</div>
-        <p class="detail-short-desc">${product.desc}</p>
-        <div class="detail-actions">
-          <div class="detail-qty">
-            <button type="button" id="qtyMinus">&minus;</button>
-            <span id="qtyValue">1</span>
-            <button type="button" id="qtyPlus">+</button>
-          </div>
-          <button class="btn-primary" id="addToCartBtn" data-label="Add to Cart">Add to Cart</button>
-          <button type="button" class="wishlist-btn wishlist-btn-inline" id="detailWishlistBtn" data-id="${product.id}" aria-label="Toggle wishlist">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-          </button>
-        </div>
-
-        <div class="description-block">
-          <h2>Overview</h2>
-          <p>${d.overview}</p>
-
-          <h2>Key Features</h2>
-          <ul>${d.features.map(f => `<li>${f}</li>`).join("")}</ul>
-
-          <h2>Specifications</h2>
-          <ul>${d.specs.map(s => `<li>${s}</li>`).join("")}</ul>
-        </div>
-      </div>
-    `;
-
-    document.getElementById("detailWishlistBtn").addEventListener("click", () => {
-      toggleWishlist(product.id);
-    });
-    syncWishlistButtons();
-
-    document.getElementById("galleryThumbs").addEventListener("click", e => {
-      const btn = e.target.closest("button[data-index]");
-      if(!btn) return;
-      activeImageIndex = Number(btn.dataset.index);
-      document.getElementById("galleryMainImg").src = images[activeImageIndex];
-      document.querySelectorAll("#galleryThumbs button").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    });
-
-    let qty = 1;
-    let addedTimeout = null;
-    const qtyValue = document.getElementById("qtyValue");
-    const addToCartBtn = document.getElementById("addToCartBtn");
-
-    function resetAddButton(){
-      if(addedTimeout){ clearTimeout(addedTimeout); addedTimeout = null; }
-      addToCartBtn.textContent = addToCartBtn.dataset.label;
-      addToCartBtn.classList.remove("added");
-    }
-
-    document.getElementById("qtyMinus").addEventListener("click", () => {
-      qty = Math.max(1, qty - 1);
-      qtyValue.textContent = qty;
-      resetAddButton();
-    });
-    document.getElementById("qtyPlus").addEventListener("click", () => {
-      qty += 1;
-      qtyValue.textContent = qty;
-      resetAddButton();
-    });
-    addToCartBtn.addEventListener("click", e => {
-      for(let i = 0; i < qty; i++) addToCart(product.id);
-      const btn = e.currentTarget;
-      const original = btn.dataset.label;
-      btn.textContent = "Added to Cart";
-      btn.classList.add("added");
-      addedTimeout = setTimeout(() => {
-        btn.textContent = original;
-        btn.classList.remove("added");
-        addedTimeout = null;
-      }, 1200);
-    });
-  }
-
-  renderDetail();
   initCartWidget();
   initWishlistWidget();
   initFooter();

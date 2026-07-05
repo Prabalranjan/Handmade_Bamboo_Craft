@@ -63,6 +63,7 @@ function renderWishlist(){
 
 function openWishlist(){
   if(typeof closeCart === "function") closeCart();
+  if(typeof closeNav === "function") closeNav();
   document.getElementById("wishlistDrawer").classList.add("open");
   document.getElementById("wishlistOverlay").classList.add("open");
 }

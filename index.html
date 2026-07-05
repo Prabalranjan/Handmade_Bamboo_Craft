@@ -14,10 +14,17 @@
 <header class="site-header">
   <div class="nav-container">
     <a href="#home" class="logo">Handmade <span>Bamboo</span> Craft</a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#shop">Shop</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav-links" id="navLinks" aria-label="Main menu">
+      <div class="nav-links-header">
+        <span>Menu</span>
+        <button class="cart-close" id="navClose" aria-label="Close menu">&times;</button>
+      </div>
+      <div class="nav-links-list">
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="about.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </nav>
     <div class="nav-actions">
       <button class="icon-btn" id="wishlistToggle" aria-label="Open wishlist">
@@ -57,10 +64,13 @@
   </div>
 </header>
 
+<div class="cart-overlay" id="navOverlay"></div>
+
 <section class="hero" id="home">
+  <img class="hero-photo" src="product/Landing Page.png" alt="A rattan and bamboo-furnished living room styled with handmade bamboo decor">
   <div class="hero-content">
     <span class="eyebrow">Handcrafted in Assam</span>
-    <h1>Bamboo, shaped by hand<br>into everyday beauty.</h1>
+    <h1>Bamboo, shaped by hand <br>into everyday beauty.</h1>
     <p>Eco-friendly bamboo lamps, planters, cups and home decor — handmade in Assam, shipped anywhere in India.</p>
     <div class="trust-row">
       <div class="trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>100% Handmade</div>
@@ -69,10 +79,18 @@
     </div>
     <a href="#shop" class="btn-primary">Explore the Shop</a>
   </div>
-  <div class="hero-image">
-    <img src="product/Handmade Bamboo Table Lamp.jpg" alt="Handmade Bamboo Table Lamp">
-  </div>
 </section>
+
+<div class="wrap category-marquee-heading">
+  <div class="section-heading">
+    <h2>Shop by Category</h2>
+    <p>Drag, swipe, or click a category to jump straight to what you're after.</p>
+  </div>
+</div>
+
+<div class="category-marquee">
+  <div class="marquee-track" id="categoryMarquee"></div>
+</div>
 
 <section id="shop">
   <div class="wrap">
@@ -84,46 +102,52 @@
   </div>
 </section>
 
-<section class="alt" id="about">
-  <div class="wrap about-grid">
-    <img src="product/Bamboo Weaving Pendant Lamp.jpg" alt="Bamboo weaving craftsmanship">
-    <div class="about-text">
-      <h2>Our Story</h2>
-      <p>Handmade Bamboo Craft is a small, home-grown venture based in Assam, one of India's richest bamboo-growing regions. Every lamp, planter, and cup we make is shaped by hand using traditional weaving and carving techniques passed down through generations of local artisans.</p>
-      <p>We're just getting started — right now we ship these handmade pieces anywhere in India, and we're figuring things out as we grow. Thank you for supporting small, sustainable craft.</p>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap">
-    <div class="section-heading">
-      <h2>Get in Touch</h2>
-      <p>Questions about a product, bulk orders, or shipping? Reach out any time.</p>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg></div>
-        <h3>WhatsApp</h3>
-        <a href="https://wa.me/919999999999" target="_blank" rel="noopener">+91 99999 99999</a>
-      </div>
-      <div class="contact-card">
-        <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 6l9 6 9-6M4 4h16v16H4z"/></svg></div>
-        <h3>Email</h3>
-        <a href="mailto:hello@handmadebamboocraft.example">hello@handmadebamboocraft.example</a>
-      </div>
-      <div class="contact-card">
-        <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <h3>Based In</h3>
-        <span>Assam, India — shipping pan-India</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <footer>
-  <div class="wrap">
-    <p>&copy; 2026 Handmade Bamboo Craft. All rights reserved.</p>
+  <div class="wrap footer-newsletter">
+    <div>
+      <h3>Stay in the loop</h3>
+      <p>New pieces, restocks, and the occasional offer. No spam, ever.</p>
+    </div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" id="newsletterEmail" placeholder="you@example.com" required>
+      <button type="submit" class="btn-primary">Subscribe</button>
+      <div class="newsletter-success" id="newsletterSuccess">Thanks — you're on the list!</div>
+    </form>
+  </div>
+
+  <div class="wrap footer-grid">
+    <div class="footer-col footer-brand">
+      <a href="index.html#home" class="logo">Handmade <span>Bamboo</span> Craft</a>
+      <p>Handcrafted bamboo lamps, planters, cups and home decor — made in Assam, shipped pan-India.</p>
+      <div class="footer-social">
+        <!-- TODO: swap # for your real Facebook and Instagram URLs -->
+        <a href="#" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="contact.html">Contact Us</a>
+      <a href="faq.html">FAQ</a>
+      <a href="order-tracking.html">Order Tracking</a>
+      <p class="footer-hours">Online-only — WhatsApp support Mon–Sat, 10am–7pm IST</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Trust &amp; Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="shipping-returns.html">Shipping &amp; Returns</a>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <p>&copy; <span id="footerYear"></span> Handmade Bamboo Craft. All rights reserved.</p>
   </div>
 </footer>
 
@@ -154,9 +178,93 @@
 <script src="cart.js"></script>
 <script src="wishlist.js"></script>
 <script>
+  let activeCategory = "All";
+
+  function renderCategoryMarquee(){
+    const track = document.getElementById("categoryMarquee");
+    const tiles = CATEGORIES.map(c => `
+      <button type="button" class="category-pill${c === activeCategory ? " active" : ""}" data-category="${c}">
+        <img src="${CATEGORY_IMAGES[c]}" alt="${c}" loading="lazy">
+        <span>${c}</span>
+      </button>
+    `).join("");
+    // Tripled (not just doubled) so there's a full spare set on either side —
+    // the user can drag/swipe either direction and still land on matching
+    // content before a wrap-around reset is needed.
+    track.innerHTML = tiles + tiles + tiles;
+  }
+
+  let marqueeDragMoved = false;
+
+  document.getElementById("categoryMarquee").addEventListener("click", e => {
+    if(marqueeDragMoved){ marqueeDragMoved = false; return; }
+    const btn = e.target.closest(".category-pill");
+    if(!btn) return;
+    activeCategory = btn.dataset.category;
+    document.querySelectorAll(".category-pill").forEach(p => {
+      p.classList.toggle("active", p.dataset.category === activeCategory);
+    });
+    renderProducts();
+    document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+  });
+
+  // Auto-drifts the marquee on its own, but it's a real scrollable element —
+  // touch swipe works natively (mobile), and mouse users can click-drag it.
+  // Both mechanisms just move the same scrollLeft, so they never fight.
+  function initCategoryMarqueeScroll(){
+    const container = document.querySelector(".category-marquee");
+    const track = document.getElementById("categoryMarquee");
+    const unit = track.scrollWidth / 3;
+    if(!unit) return;
+
+    container.scrollLeft = unit; // start in the middle copy, room on both sides
+
+    function wrap(){
+      if(container.scrollLeft < unit * 0.5) container.scrollLeft += unit;
+      else if(container.scrollLeft > unit * 1.5) container.scrollLeft -= unit;
+    }
+    container.addEventListener("scroll", wrap);
+
+    let autoScroll = true;
+    let resumeTimer = null;
+    (function drift(){
+      if(autoScroll) container.scrollLeft += 0.6;
+      requestAnimationFrame(drift);
+    })();
+
+    let isDragging = false, dragStartX = 0, dragStartScroll = 0;
+
+    container.addEventListener("pointerdown", e => {
+      autoScroll = false;
+      if(resumeTimer) clearTimeout(resumeTimer);
+      if(e.pointerType === "mouse"){
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartScroll = container.scrollLeft;
+        container.classList.add("dragging");
+        container.setPointerCapture(e.pointerId);
+      }
+    });
+    container.addEventListener("pointermove", e => {
+      if(!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      if(Math.abs(dx) > 4) marqueeDragMoved = true;
+      container.scrollLeft = dragStartScroll - dx;
+    });
+    function endInteraction(){
+      isDragging = false;
+      container.classList.remove("dragging");
+      resumeTimer = setTimeout(() => { autoScroll = true; }, 1200);
+    }
+    container.addEventListener("pointerup", endInteraction);
+    container.addEventListener("pointercancel", endInteraction);
+    container.addEventListener("pointerleave", () => { if(!isDragging) endInteraction(); });
+  }
+
   function renderProducts(){
     const grid = document.getElementById("productGrid");
-    grid.innerHTML = products.map(p => `
+    const list = activeCategory === "All" ? products : products.filter(p => p.category === activeCategory);
+    grid.innerHTML = list.map(p => `
       <div class="product-card">
         <a class="product-image" href="product.html?id=${p.id}">
           <button type="button" class="wishlist-btn" data-id="${p.id}" aria-label="Toggle wishlist">
@@ -190,9 +298,12 @@
     if(btn) addToCart(btn.dataset.id, btn);
   });
 
+  renderCategoryMarquee();
+  initCategoryMarqueeScroll();
   renderProducts();
   initCartWidget();
   initWishlistWidget();
+  initFooter();
 </script>
 
 </body>
